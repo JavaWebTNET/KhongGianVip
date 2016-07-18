@@ -120,7 +120,7 @@
 			if($('.contai-error').is(':visible')){
 				$('.contai-error').hide();
 			}
-			return confirm('Bạn muốn xóa ảnh..?');		
+			return confirm('Bạn muốn xóa..?');		
 		});
 		
 		$('#btn-addslider').click(function() {
@@ -130,6 +130,10 @@
 		});
 		
 		$('.file-upload-image').click(function(){				
+			 var hh=$(this).parent('form').find('button').html("Cập Nhật");		
+		
+		});
+		$('.title-input-slider').click(function(){				
 			 var hh=$(this).parent('form').find('button').html("Cập Nhật");		
 		
 		});

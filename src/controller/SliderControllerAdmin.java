@@ -133,24 +133,27 @@ public class SliderControllerAdmin extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/admin/slider");
 				return;
 			}
-			Slider sl = new Slider();
-			sl.setTitle(request.getParameter("title_image"));
-			sl.setName_image(image_name);
-			sl.setId(Integer.parseInt(request.getParameter("id_slider")));
-			SliderDAO sliderDAO = new SliderDAO();
-			if (sliderDAO.UpdateSlider(sl)) {
-
-				request.getSession().setAttribute("flash_success", "Sửa  thành công..!");
-			} else {
-
-				request.getSession().setAttribute("flash_error", "Sửa không thành công..!");
-			}
-			/* tương đướng với gọi hàm index ở trên */
-			response.sendRedirect(request.getContextPath() + "/admin/slider");
-		} else {
-			request.getSession().setAttribute("flash_error", "Upload ảnh không thành công,ảnh chưa được chọn.!");
-			response.sendRedirect(request.getContextPath() + "/admin/slider");
 		}
+		SliderDAO sliderDAO = new SliderDAO();
+		if (sliderDAO.SliderFollowId(Integer.parseInt(request.getParameter("id_slider"))) == null) {
+			request.getSession().setAttribute("flash_error", "Slider không tồn tại.!");
+			response.sendRedirect(request.getContextPath() + "/admin/slider");
+			return;
+		}
+		Slider sl =sliderDAO.SliderFollowId(Integer.parseInt(request.getParameter("id_slider")));
+		sl.setTitle(request.getParameter("title_slider"));
+		if(image_name!=null){
+			sl.setName_image(image_name);
+		}	
+		if (sliderDAO.UpdateSlider(sl)) {
+
+			request.getSession().setAttribute("flash_success", "Sửa  thành công..!");
+		} else {
+
+			request.getSession().setAttribute("flash_error", "Sửa không thành công..!");
+		}
+		/* tương đướng với gọi hàm index ở trên */
+		response.sendRedirect(request.getContextPath() + "/admin/slider");
 
 	}
 

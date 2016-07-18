@@ -135,6 +135,7 @@ public class InformationControllerAdmin extends HttpServlet {
 		info.setTell(sdt);
 		info.setGioithieu(request.getParameter("gioithieu"));
 		info.setTuyendung(request.getParameter("tuyendung"));
+		info.setLienhe(request.getParameter("lienhe"));
 		if (image_infor != null) {
 			info.setLogo(image_infor);
 		}

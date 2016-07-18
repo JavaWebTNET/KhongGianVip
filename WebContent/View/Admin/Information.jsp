@@ -82,7 +82,7 @@
 				
 
 			<div class="form-group col-sm-2 col-xs-12 show-addvan-infor">
-				<input type="button" class="btn" id="btn-advan" value="Hiển thị Tuyển dụng và Giới thiệu">
+				<input type="button" class="btn" id="btn-advan" value="Hiển nhiều hơn">
 					
 			</div>
 		
@@ -106,6 +106,16 @@
 		      </textarea>
 		    </div>	    
 		   </div>
+		   
+		   	<div class="form-group col-sm-12 contai-advan">
+		<label class="control-label td-title col-sm-2">Liên Hệ</label>
+			<div class="col-sm-10">
+		      <textarea class="form-control" id="detail-lh" name="lienhe">
+		      	<%= info.getLienhe()%>
+		      </textarea>
+		    </div>	    
+		   </div>
+		   
 				
 				<div class="col-sm-12 form-group">
 					<div class="col-sm-offset-7 col-sm-5 btn-editinfo">
@@ -139,6 +149,7 @@
 <SCRIPT> 
 	CKEDITOR.replace( 'detail-gt' );
 	CKEDITOR.replace( 'detail-td' );
+	CKEDITOR.replace( 'detail-lh' );
 </script>
 <script>
 	$(document).ready(function() {

@@ -32,7 +32,7 @@ public class ImageDao {
 	            return fileName;
 			}
 			else {
-				String validKey = "file không đúng định dạng ảnh hoặc kích thước vượt quá 1M..!";
+				String validKey = "file ảnh không đúng định dạng ảnh hoặc kích thước vượt quá 1M..!";
 				request.getSession().setAttribute("flash_error",validKey);
 				return null;			
 			}

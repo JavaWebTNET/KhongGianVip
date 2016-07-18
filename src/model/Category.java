@@ -1,18 +1,12 @@
 package model;
 
-public class DanhMuc {
-	/*create table tb_danhmuc(
-			id int(3) auto_increment primary key,
-			title varchar(200),
-			sp_id int(3),
-			content_danhmuc text
-			);*/
+public class Category {
 	private int id_dm;
 	private String title ;
 	private int sp_id;
 	private String content_dm;
 	
-	public DanhMuc(){}
+	public Category(){}
 
 	public int getId_dm() {
 		return id_dm;
@@ -44,6 +38,21 @@ public class DanhMuc {
 
 	public void setContent_dm(String content_dm) {
 		this.content_dm = content_dm;
+	}
+	
+	public String content_Shortened() {
+		String subDetail = "";
+		if(content_dm!=null){
+		String plainDetail =content_dm.replaceAll("\\<.*?\\>", "");
+		String[] arrDetail = plainDetail.split(" ");		
+		int i = 1;
+		for(String word: arrDetail) {
+			if(i>20) break;
+			subDetail = subDetail + " " + word;
+			i++;
+		}
+		}
+		return subDetail;
 	}
 	
 	

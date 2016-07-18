@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/View/Admin/result.jsp=UTF-8
+encoding//WebContent/View/Client/center-left.jsp=UTF-8
+encoding//WebContent/View/Client/footer.jsp=UTF-8
 encoding//WebContent/View/Shared/AdminViewStart.jsp=UTF-8

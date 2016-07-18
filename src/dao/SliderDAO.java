@@ -41,6 +41,31 @@ public class SliderDAO {
 		}
 		return vtsl;
 	}
+	
+	public Slider SliderFollowId(int id) {
+		Slider sl = new Slider();
+		try {
+			connection = ConnectDB.ConnectData();
+			String sql = "select id,title,image_slider from tb_slider where id=?";
+			pre = connection.prepareStatement(sql);
+			pre.setInt(1,id);
+			rs = pre.executeQuery();
+			if (rs.next()) {
+				
+				sl.setId(rs.getInt("id"));
+				sl.setName_image(rs.getString("image_slider"));
+				sl.setTitle(rs.getString("title"));
+				return sl;
+			}
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println(SliderDAO.class.getName());
+			ex.printStackTrace();
+		} finally {
+			ConnectDB.closeConnection(connection, pre, rs);
+		}
+		return sl;
+	}
 
 	public boolean AddSlider(Slider sl) {
 		try {

@@ -192,7 +192,7 @@ if(request.getAttribute("allnews")!=null){
 			if($('.contai-error').is(':visible')){
 				$('.contai-error').hide();
 			}
-			return confirm('Bạn muốn xóa ảnh..?');		
+			return confirm('Bạn muốn xóa..?');		
 		});
 	});
 </script>

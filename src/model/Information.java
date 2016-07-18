@@ -14,11 +14,20 @@ public class Information {
 	private String logo;
 	private String gioithieu;
 	private String tuyendung;
+	private String lienhe;
 	
 	public Information() {
 	}
 
 	
+	public String getLienhe() {
+		return lienhe;
+	}
+
+	public void setLienhe(String lienhe) {
+		this.lienhe = lienhe;
+	}
+
 	public String getTuyendung() {
 		return tuyendung;
 	}

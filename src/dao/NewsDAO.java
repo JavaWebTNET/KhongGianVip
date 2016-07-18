@@ -15,8 +15,9 @@ public class NewsDAO {
 	private PreparedStatement pre;
 	private Connection connection;
 	private ResultSet rs;
+	public static int limit=2;
 	Date today=new Date(System.currentTimeMillis());
-	SimpleDateFormat timeFormat= new SimpleDateFormat("hh:mm:ss dd-MM-yyyy");
+	SimpleDateFormat timeFormat= new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
 	public NewsDAO(){}
 	
 	public Vector<News> AllNews(){
@@ -97,7 +98,31 @@ public class NewsDAO {
 			}
 		return ns;
 	}
-	
+	public News News_Follow_ID(int id){
+		News ns=new News();
+		try{
+			connection=ConnectDB.ConnectData();
+			String sql="select id,title,content,time_news from tb_news where id=?";
+			pre=connection.prepareStatement(sql);
+			pre.setInt(1,id);
+			rs=pre.executeQuery();
+			if(rs.next()){				
+				ns.setId(rs.getInt("id"));
+				ns.setTitle(rs.getString("title"));
+				ns.setContent(rs.getString("content"));
+				ns.setTime_news(rs.getString("time_news"));	
+				
+			 }
+		    }
+			catch (SQLException ex) {
+				System.out.println("SQLException: " + ex.getMessage());
+				System.out.println(NewsDAO.class.getName());
+				ex.printStackTrace();
+			} finally {
+				ConnectDB.closeConnection(connection, pre, rs);
+			}
+		return ns;
+	}
 	public boolean UpdateNews(News ns) {
 	
 		try {
@@ -139,6 +164,8 @@ public class NewsDAO {
 		return false;
 	}
 	
+	
+	
 	public boolean DeleteNews(int id){
 		try{
 			connection=ConnectDB.ConnectData();
@@ -156,6 +183,70 @@ public class NewsDAO {
 		}
 		
 		return false;
+	}
+	public boolean CheckExist_News(int id){
+		try {
+			connection = ConnectDB.ConnectData();
+			String sql = "select id from tb_news where id=?";
+			pre=connection.prepareStatement(sql);
+			pre.setInt(1,id);
+			return pre.executeQuery().next();
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println(NewsDAO.class.getName());
+			ex.printStackTrace();
+		} finally {
+			ConnectDB.closeConnection(connection, pre, rs);
+		}
+		return false;
+	}
+	
+	/*return number records in table news*/
+	public int Number_Records() {	
+		try {
+			connection = ConnectDB.ConnectData();
+			String sql = "select count(id) as number_records from tb_news";
+			pre = connection.prepareStatement(sql);
+			rs = pre.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("number_records");
+			}
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println(NewsDAO.class.getName());
+			ex.printStackTrace();
+		} finally {
+			ConnectDB.closeConnection(connection, pre, rs);
+		}
+		return 0;
+	}
+	
+	/* get all dish in table  from number_records  get limit records*/
+	public Vector<News> Dish_Follow_Limit(int number_pages ) {
+		Vector<News> vtns = new Vector<News>();
+		try {
+			connection = ConnectDB.ConnectData();
+			String sql = "select id,title,content,time_news from tb_news limit ? offset ?";
+			pre = connection.prepareStatement(sql);
+			pre.setInt(1,limit);
+			pre.setInt(2, number_pages>0?(number_pages-1)*limit:0);
+			rs = pre.executeQuery();
+			while(rs.next()){
+				News news=new News();
+				news.setId(rs.getInt("id"));
+				news.setTitle(rs.getString("title"));
+				news.setContent(rs.getString("content"));
+				news.setTime_news(rs.getString("time_news"));			
+				vtns.add(news);
+			}
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println(NewsDAO.class.getName());
+			ex.printStackTrace();
+		} finally {
+			ConnectDB.closeConnection(connection, pre, rs);
+		}
+		return vtns;
 	}
 
 }

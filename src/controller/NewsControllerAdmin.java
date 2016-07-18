@@ -104,7 +104,7 @@ public class NewsControllerAdmin extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		News ns = new News();
-		if (request.getParameter("title_add_news").equals("")) {
+		if (request.getParameter("add_content").equals("")) {
 			request.getSession().setAttribute("flash_error", "Nội dung không được trống..!");
 			response.sendRedirect(request.getContextPath() + "/admin/news");
 			return;
